@@ -18,6 +18,8 @@ var date = {
     year : 2020
 }
 
+
+
 function convertDateToStr(dateStr){
     var dateStr = {day : "" , month : "", year : ""}
     if(dateStr.day < 10){
@@ -51,14 +53,7 @@ function getAllFormates(date){
  
 
 function checkIsPalindrome(){
-    var listOfPalindromes = getAllFormates(date)
-    var flag = false
-    for(let i = 0 ; i < listOfPalindromes.length ; i++ ){
-     flag = true;
-     break;
-    }
-    return flag
+   
 }
 
 
-console.log(getAllFormates(date))
