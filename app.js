@@ -1,6 +1,6 @@
-const birthDate = document.querySelector("#birth-date")
-const checkButton = document.querySelector("#check-btn")
-const outputEl = document.querySelector("#output")
+var birthDate = document.querySelector("#birth-date")
+var checkButton = document.querySelector("#check-btn")
+var outputEl = document.querySelector("#output")
 
 
 
@@ -63,86 +63,113 @@ function checkPalindromeForAllDateFormats(date){
 
 
 function isLeapYear(year){
-  if(year % 400 === 0 ){
+  if(year % 400 === 0){
     return true;
-  }if(year % 100 === 0){
+  }
+  if(year % 100 === 0){
     return false;
   }
-  if(year % 4=== 0){
-    return true;
+  if(year % 4 === 0){
+    return true
   }
 
 }
-
-
-console.log(isLeapYear(2021))
 
 function getNextDate(date){
-     var day = date.day + 1 
-     var month = date.month 
-     var year = date.year
+  var day = date.day + 1 ;
+  var month  = date.month;
+  var year = date.year
 
-     var dayInMonths = [31,28,31,30,31,30,31, 31,30,31,30 ,31]
+  var daysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]
 
-     if(dayInMonths === 2){
-        if(isLeapYear(year)){
-           if(day > 29){
-             day = 1 ;
-             month++
-           }else{
-            if(day > 29){
-                day = 1 
-                month++
-            }
-           }
-        }
-     }
-     else{
-        if(day > dayInMonths[month - 1]){
-            day = 1 ;
-            month++
-        }
-     }
-     if(month > 12){
-        month =1 ;
-        year++;
-     }
-     return{
-        day : day,
-        month : month,
-        year : year
-     };
+  if(month === 2){
+    if(isLeapYear(year)){
+      if(day > 29){
+        day = 1 ;
+        month++
+      }
+    }else{
+       if(day > 28){
+        day = 1 ;
+        month++
+       }
+    }
+
+  }else{
+    if(day > daysInMonth[month - 1]){
+      day = 1 
+      month++
+    }
+  }
+
+  if(month > 12){
+    month = 1 
+    year++
+  }
+
+  return{
+    day : day,
+    month : month,
+    year : year
+  }
 }
 
 
 
-function getNextPalindromeDate(date){
-  var ctr = 0 ;
-  var nextDate = getNextDate(date)
-  while(1){
-    ctr++;
-    var checkIsPalindrome = checkPalindromeForAllDateFormats(nextDate)
-    if(checkIsPalindrome){
-        break;
-    }
-    nextDate = getNextDate(nextDate)
-  }
-  return [ctr , nextDate]
+
+function getNextPalindrome(date){
+   var ctr = 0 ;
+   var nextDate = getNextDate(date)
+
+   while(1){
+   ctr++;
+   var isPalindrome = checkPalindromeForAllDateFormats(nextDate)
+   if(isPalindrome){
+    break;
+   }
+   nextDate = getNextDate(nextDate)
+   }
+
+
+   return [ctr , nextDate]
+
 }
 
 
 var date = {
-    day : 11,
-    month : 2,
-    year : 2020
+    day : 8,
+    month : 8,
+    year : 2021
+}
+
+// console.log(getNextPalindrome(date))
+
+
+
+function clickHandler(){
+ var bdayStr = birthDate.value
+
+ if(bdayStr !== ""){
+  var listOfDate = bdayStr.split("-")
+   var date = {
+    day : Number(listOfDate[2]),
+    month : Number(listOfDate[1]),
+    year :  Number(listOfDate[0])
+   }
+
+   var isPalindrome = checkPalindromeForAllDateFormats(date)
+   if(isPalindrome){
+    outputEl.innerHTML = "Your birthday is a Palindrome"
+   }else{
+    var [ctr , nextDate] = getNextPalindrome(date)
+    outputEl.innerHTML =  ` ysdy ${nextDate} ,, ${ctr}`
+   }
+ }
+
 }
 
 
-
-// console.log(getNextDate(date))
-console.log(getNextPalindromeDate(date))
-
-
+checkButton.addEventListener("click", clickHandler)
 
 
 
