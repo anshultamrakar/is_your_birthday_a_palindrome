@@ -35,10 +35,18 @@ input{
     padding: 1rem;
 }
 
+#output{
+    color: #000;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
 button{
  width: 10%;
- height: 3vh;
+ height: 4vh;
  border: none;
+ border: 2px solid black;
+ border-right: 20px;
  background-color: blue;
  color: white;
  font-weight: bold;
